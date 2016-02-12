@@ -1,0 +1,8 @@
+
+.form-control.ng-valid {
+    border-color: lightgreen;
+}
+
+.form-control.ng-dirty.ng-invalid {
+    border-color: lightpink;
+}

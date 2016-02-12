@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="store">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link rel="stylesheet" href="my.css">
+</head>
+<body ng-controller="StoreController as store">
+    <div ng-hide="store.product.soldOut" ng-repeat="product in store.products | orderBy:'-price'" >
+        <h1>{{product.name | lowercase}}</h1>
+        <h2>{{product.price | currency}}</h2>
+        <p>{{product.description}}</p>
+        <button ng-show="store.product.canPurchase">Add to cart</button>
+
+        <product-panel></product-panel>
+
+        <blockquote ng-repeat="review in product.reviews">
+            <b>Stars: {{review.stars}}</b>
+            {{review.body}}
+            <cite>by: {{review.author}}</cite>
+        </blockquote>
+        <div class="row">
+            <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form name="reviewForm" ng-controller="ReviewController as reviewCtrl"
+                          ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate>
+                        <blockquote>
+                            <b>Stars: {{reviewCtrl.review.stars}}</b>
+                            <p>{{reviewCtrl.review.body}}</p>
+                            <cite>by: {{reviewCtrl.review.author}}</cite>
+                        </blockquote>
+
+                        <div class="form-group">
+                            <label for="stars">Stars</label>
+                            <select ng-model="reviewCtrl.review.stars" name="stars" class="form-control" required>
+                                <option value="1">1 star</option>
+                                <option value="2">2 stars</option>
+                                <option value="3">3 stars</option>
+                                <option value="4">4 stars</option>
+                                <option value="5">5 stars</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="body">Body</label>
+                            <textarea ng-model="reviewCtrl.review.body" mame="body" class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="author">Author</label>
+                            <input type="email" ng-model="reviewCtrl.review.author" name="author" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Amount</label>
+                            <input type="number" ng-model="reviewCtrl.review.amount" name="amount" class="form-control" required min="2" max="10">
+                        </div>
+                        <div>Form review is {{reviewForm.$valid}}</div>
+                        <input type="submit" value="Submit"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script type="text/javascript" src="products.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+</body>
+</html>

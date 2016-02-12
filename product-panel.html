@@ -1,0 +1,18 @@
+<ul class="nav nav-pills">
+    <li ng-class="{active:panel.isSelected(1)}"><a href="" ng-click="panel.selectTab(1)" >Name</a></li>
+    <li ng-class="{active:panel.isSelected(2)}"><a href="" ng-click="panel.selectTab(2)" >Desc</a></li>
+    <li ng-class="{active:panel.isSelected(3)}"><a href="" ng-click="panel.selectTab(3)" >Price</a></li>
+</ul>
+
+<div class="panel panel-default" ng-show="panel.isSelected(1)" product-title>
+</div>
+<div class="panel panel-default" ng-show="panel.isSelected(2)">
+    <h4>
+        <product-description></product-description>
+    </h4>
+</div>
+<div class="panel panel-default" ng-show="panel.isSelected(3)">
+    <h4>Price</h4>
+    <h4>{{product.price}}</h4>
+</div>
+</div>
